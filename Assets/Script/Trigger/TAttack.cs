@@ -12,7 +12,6 @@ public class TAttack : MonoBehaviour
         if (hit != null)
         {
             hit.TakeDamage(_damage);
-            Debug.Log("llegue al trigger");
         }
 
     }

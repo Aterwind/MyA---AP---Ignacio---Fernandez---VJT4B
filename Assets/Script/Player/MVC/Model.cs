@@ -29,19 +29,17 @@ public class Model
         var dir = _myTransform.up * v;
         dir += _myTransform.right * h;
 
-        Debug.Log("Horizontal: " + h);
-        Debug.Log("Vertical: " + v);
-
-        _myTransform.position += dir * _speed * Time.deltaTime;
+        if(dir.magnitude > 1)
+            _myTransform.position += dir.normalized * _speed * Time.deltaTime;
+        else
+            _myTransform.position += dir * _speed * Time.deltaTime;
     }
 
     public void ChangeMaxHP(float changeHp)
     {
         _maxHp += changeHp;
         if(OnGetmaxHp != null)
-        {
             OnGetmaxHp.Invoke(_maxHp);
-        }
     }
 
     public void ReceiveHP(float hp)
@@ -50,10 +48,6 @@ public class Model
         {
             _hp += hp;
             OnGetHp.Invoke(_hp);
-        }
-        else
-        {
-            return;
         }
     }
 

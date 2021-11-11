@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class View
 {
+    public View(Model model, ListWeapon unitWeapon)
+    {
+        model.OnGetDmg += Damage;
+        model.OnDeath += Death;
+        model.OnGetHp += Receive;
+        model.OnGetmaxHp += ChangeMaxHP;
+    }
+
     public void Damage(float life, float maxLife)
     {
         Debug.Log("Vida: "+ life);
