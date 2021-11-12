@@ -11,7 +11,7 @@ public class PlayerBehoviour : MonoBehaviour,IDamageable, IReceiveHP
     private float _hp = 0;
 
     [SerializeField] private JoyController _myStick = null;
-    [SerializeField] private List<ListWeapon> _myWeapon = new List<ListWeapon>();
+    [SerializeField] private List<PoolBullet> _myWeapon = new List<PoolBullet>();
 
     private Model _model = null;
     private Controller _controller = null;

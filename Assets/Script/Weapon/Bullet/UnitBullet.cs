@@ -5,8 +5,16 @@ using System;
 
 public abstract class UnitBullet:MonoBehaviour, ITurnBase<UnitBullet>
 {
-    public Action<UnitBullet> BackStock;
     [SerializeField] protected float speed = 0;
+    [SerializeField] protected Transform _transform;
+    public Action<UnitBullet> BackStock;
+
+    protected IBulletAdvance _currentStrategy = null;
+    protected IBulletAdvance[] _strategy = new IBulletAdvance[2];
+
+    protected Vector3 _steering;
+    protected Vector3 _desired;
+    protected Vector3 _velocity;
 
     public void TurnOff(UnitBullet b)
     {

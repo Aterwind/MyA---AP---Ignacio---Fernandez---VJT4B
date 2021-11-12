@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3833057095542011999}
   - component: {fileID: 348762983778852569}
   - component: {fileID: 4302033228834754794}
-  - component: {fileID: 7543127181452972497}
+  - component: {fileID: 8505203538983840250}
   m_Layer: 9
   m_Name: Bullet_Player
   m_TagString: Untagged
@@ -110,7 +110,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2.0000005, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7543127181452972497
+--- !u!114 &8505203538983840250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5879411302050859545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33147abcefd86c440b8f9771299a7e49, type: 3}
+  m_Script: {fileID: 11500000, guid: 45879dc07fa2a9d41b762f16af37bbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  maxForce: 0
+  _transform: {fileID: 1850681563719021909}

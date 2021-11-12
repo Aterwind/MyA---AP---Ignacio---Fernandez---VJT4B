@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class View
 {
-    public View(Model model, ListWeapon unitWeapon)
+    public View(Model model, PoolBullet unitWeapon)
     {
         model.OnGetDmg += Damage;
         model.OnDeath += Death;

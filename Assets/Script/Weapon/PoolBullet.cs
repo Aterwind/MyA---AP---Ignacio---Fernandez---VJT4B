@@ -2,7 +2,7 @@
 using UnityEngine;
 using System;
 
-public class ListWeapon : MonoBehaviour
+public class PoolBullet : MonoBehaviour
 {
     [SerializeField] private int _stock = 0;
     protected int _maxBullet = 0;
@@ -30,6 +30,7 @@ public class ListWeapon : MonoBehaviour
                 bulletType = pool.GetObject();
                 bulletType.transform.position = spawnList[i].transform.position;
                 bulletType.transform.forward = spawnList[i].transform.forward;
+
                 bulletType.BackStock = pool.ReturnObject;
             }
             _nextBullet = Time.time + _attackBulletRate / _divideAttack;

@@ -7,11 +7,11 @@ public class Controller
 {
     Model _model = null;
     JoyController _myStick = null;
-    ListWeapon _myWeapon = null;
+    PoolBullet _myWeapon = null;
 
     Action changeControls;
 
-    public Controller(Model model, JoyController myStick, ListWeapon myWeapon)
+    public Controller(Model model, JoyController myStick, PoolBullet myWeapon)
     {
         _model = model;
         _myStick = myStick;
