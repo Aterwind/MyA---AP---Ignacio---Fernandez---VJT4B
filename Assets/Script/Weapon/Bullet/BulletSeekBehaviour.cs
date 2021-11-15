@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSeekNew : UnitBullet
+public class BulletSeekBehaviour : UnitBullet
 {
     [SerializeField] private CapsuleCollider _targetCollider = null;
-    [SerializeField] private float _timeResetCollider = 0;
-    [SerializeField] private float _distanceBackStock = 0;
+    //[SerializeField] private float _timeResetCollider = 0;
     [SerializeField] private float _radiusCollider = 0;
+
+    private Vector3 _steering = Vector3.zero;
+    private Vector3 _desired = Vector3.zero;
+    private Vector3 _velocity = Vector3.zero;
 
     [SerializeField] private List<GameObject> _listTarget = new List<GameObject>();
     private Vector3 _targetSave = Vector3.zero;
@@ -15,9 +18,9 @@ public class BulletSeekNew : UnitBullet
     void Start()
     {
         _targetCollider.radius = _radiusCollider;
-        _strategy[0] = new BulletBasicAdvance(speed, _transform);
-        _strategy[1] = new BulletSeekAdvance(speed, _transform, _targetCollider, _listTarget, _timeResetCollider,
-            _distanceBackStock, _steering, _desired, _velocity, _targetSave, this, BackStock);
+        _strategy[0] = new BulletBasicAdvance(FlyweightPointer.BulletBasicPlayer.speed, _transform);
+        _strategy[1] = new BulletSeekAdvance(FlyweightPointer.BulletSeekPlayer.speed, _transform ,_targetCollider, _listTarget, FlyweightPointer.BulletSeekPlayer.timeResetCollider,
+            FlyweightPointer.BulletSeekPlayer.distanceBackStock, _steering, _desired, _velocity, _targetSave, this, BackStock);
 
         _currentStrategy = _strategy[1];
 
@@ -57,7 +60,7 @@ public class BulletSeekNew : UnitBullet
 
     IEnumerator resetCollider()
     {
-        yield return new WaitForSeconds(_timeResetCollider);
+        yield return new WaitForSeconds(FlyweightPointer.BulletSeekPlayer.timeResetCollider);
         _targetCollider.radius = _radiusCollider;
     }
 

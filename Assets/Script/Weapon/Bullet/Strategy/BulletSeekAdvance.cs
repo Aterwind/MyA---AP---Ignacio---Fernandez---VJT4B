@@ -51,6 +51,7 @@ public class BulletSeekAdvance : IBulletAdvance
 
             if(_targetSave.magnitude < _distanceBackStock)
             {
+                _listTarget.Clear();
                 _BackStock.Invoke(_unitBullet);
             }
         }

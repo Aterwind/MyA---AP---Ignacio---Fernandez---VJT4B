@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBasic : UnitBullet
+public class BulletBehaviour : UnitBullet
 {
     void Start()
     {
-        _strategy[0] = new BulletBasicAdvance(speed, _transform);
+        _strategy[0] = new BulletBasicAdvance(FlyweightPointer.BulletBasicPlayer.speed, _transform);
         _currentStrategy = _strategy[0];
     }
 

@@ -2,15 +2,8 @@
 using UnityEngine;
 using System;
 
-public class PoolBullet : MonoBehaviour
+public class WeaponBasic : UnitWeapon
 {
-    [SerializeField] private int _stock = 0;
-    protected int _maxBullet = 0;
-
-    [SerializeField] private float _attackBulletRate = 0;
-    private float _divideAttack = 2;
-    private float _nextBullet = 0;
-
     public UnitBullet bulletType = null;
     public List<GameObject> spawnList = new List<GameObject>();
     ObjectPool<UnitBullet> pool = null;
@@ -21,7 +14,7 @@ public class PoolBullet : MonoBehaviour
         pool = new ObjectPool<UnitBullet>(BulletReturn, bulletType.TurnOn, bulletType.TurnOff, _stock);
     }
 
-    private void Shoot()
+    protected override void Shoot()
     {
         if (Time.time >= _nextBullet)
         {
@@ -37,7 +30,7 @@ public class PoolBullet : MonoBehaviour
         }
     }
 
-    public bool Fire(bool a)
+    public override bool Fire(bool a)
     {
         if (a != false)
         {

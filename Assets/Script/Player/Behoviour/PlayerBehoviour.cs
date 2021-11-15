@@ -11,7 +11,7 @@ public class PlayerBehoviour : MonoBehaviour,IDamageable, IReceiveHP
     private float _hp = 0;
 
     [SerializeField] private JoyController _myStick = null;
-    [SerializeField] private List<PoolBullet> _myWeapon = new List<PoolBullet>();
+    [SerializeField] private List<UnitWeapon> _myWeapon = new List<UnitWeapon>();
 
     private Model _model = null;
     private Controller _controller = null;
@@ -23,7 +23,6 @@ public class PlayerBehoviour : MonoBehaviour,IDamageable, IReceiveHP
         _controller = new Controller(_model, _myStick, _myWeapon[_indexWeapon]);
         _view = new View(_model, _myWeapon[_indexWeapon]);
     }
-
     public void Start()
     {
         _myStick.OnDragStick += _model.Movement;

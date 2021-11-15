@@ -154,10 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180bc9c9b2e22454fb062ad23a3a422f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
   _transform: {fileID: 2299297487049560110}
   _targetCollider: {fileID: 2609269601698975351}
   _timeResetCollider: 0.1
-  _distanceBackStock: 0.5
   _radiusCollider: 15
   _listTarget: []

@@ -123,5 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  maxForce: 0
   _transform: {fileID: 1850681563719021909}
