@@ -7,4 +7,8 @@ public class Flyweight
     public float speed;
     public float distanceBackStock;
     public float timeResetCollider;
+    public float enemyTypeScore;
+    public int player;
+    public int bounds;
+    public int bullets;
 }

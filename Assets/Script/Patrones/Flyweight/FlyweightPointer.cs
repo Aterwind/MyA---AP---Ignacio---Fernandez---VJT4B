@@ -25,6 +25,20 @@ public static class FlyweightPointer
     {
         speed = 8,
         timeResetCollider = 3,
+        enemyTypeScore = 50,
+        player = 8,
+        bullets = 9,
+        bounds = 12,
+    };
+
+    public static readonly Flyweight EnemyBasic = new Flyweight
+    {
+        speed = 6,
+        enemyTypeScore = 25,
+        player = 8,
+        bullets = 9,
+        bounds = 12,
+
     };
 
 }

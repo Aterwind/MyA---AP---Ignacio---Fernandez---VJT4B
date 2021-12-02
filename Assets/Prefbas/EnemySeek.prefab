@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7176692451696010886}
   - component: {fileID: 7176692451696010882}
   - component: {fileID: 7176692451696010883}
+  - component: {fileID: -969387121037971343}
   m_Layer: 0
   m_Name: EnemySeek
   m_TagString: Untagged
@@ -128,3 +129,16 @@ MonoBehaviour:
   _targetCollider: {fileID: 7176692451696010882}
   _indexState: 1
   _listTarget: []
+--- !u!114 &-969387121037971343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7176692451696010880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598abcba1d677834eb4836feea3cf892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 30

@@ -28,4 +28,18 @@ public class EnemyBasic : UnitEnemies, IDamageable
     {
         throw new System.NotImplementedException();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == FlyweightPointer.EnemyBasic.bullets)
+        {
+            EventManager.Trigger("OnScoreUpdate", FlyweightPointer.EnemyBasic.enemyTypeScore);
+        }
+
+        if (other.gameObject.layer == FlyweightPointer.EnemyBasic.bounds || other.gameObject.layer == FlyweightPointer.EnemyBasic.player)
+        {
+            //Retorno al Pool
+        }
+    }
+
 }

@@ -13,6 +13,9 @@ public class Model
     public event Action<float> OnGetHp;
     public event Action<float, float> OnGetDmg;
     public event Action OnDeath;
+    public event Action<float> HealthUpdater;
+
+
 
     public Model(float hp, float maxHp, float speed, Transform transform, UnitWeapon weapon)
     {
@@ -24,6 +27,13 @@ public class Model
         _weapon = weapon;
     }
 
+    public void HpInitializer(float hp)
+    {
+        _maxHp = hp;
+        if (HealthUpdater != null)
+            HealthUpdater.Invoke(_maxHp);
+    }
+
     public void Movement(float h, float v)
     {
         var dir = _myTransform.up * v;
@@ -33,6 +43,8 @@ public class Model
             _myTransform.position += dir.normalized * _speed * Time.deltaTime;
         else
             _myTransform.position += dir * _speed * Time.deltaTime;
+
+
     }
 
     public void IndexWeapon(UnitWeapon w)

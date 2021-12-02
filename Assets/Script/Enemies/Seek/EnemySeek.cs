@@ -23,8 +23,8 @@ public class EnemySeek : UnitEnemies
 
     private void Awake()
     {
-        _model = new ModelEnemySeek(_hp, _maxHp, _indexState, _myTransform, _currentStrategy, _strategy, 
-            _targetCollider, _steering, _desired, _velocity,_targetSave, _listTarget);
+        _model = new ModelEnemySeek(_hp, _maxHp, _indexState, _myTransform, _currentStrategy, _strategy,
+            _targetCollider, _steering, _desired, _velocity, _targetSave, _listTarget);
         _controller = new ControllerEnemySeek(_model);
     }
     private void Start()
@@ -44,6 +44,19 @@ public class EnemySeek : UnitEnemies
             _listTarget.Add(hitPlayer.gameObject); _targetCollider.radius = 0;
             StartCoroutine(ResetCollider());
         }
+
+        //Si golpea con una bala da puntos
+        if (other.gameObject.layer == FlyweightPointer.EnemySeek.bullets)
+        {
+            EventManager.Trigger("OnScoreUpdate", FlyweightPointer.EnemySeek.enemyTypeScore);
+        }
+
+        //Si golpea con bounds o player returnea al pool
+        if (other.gameObject.layer == FlyweightPointer.EnemySeek.bounds || other.gameObject.layer == FlyweightPointer.EnemySeek.player)
+        {
+            //Retorno al Pool
+        }
+
     }
 
     IEnumerator ResetCollider()
@@ -51,4 +64,6 @@ public class EnemySeek : UnitEnemies
         yield return new WaitForSeconds(FlyweightPointer.EnemySeek.timeResetCollider);
         _listTarget.Remove(_listTarget[0].gameObject);
     }
+
+
 }
