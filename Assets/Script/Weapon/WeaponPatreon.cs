@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponTripleBasic : UnitWeapon
+public class WeaponPatreon : UnitWeapon
 {
     public UnitBullet bulletType = null;
-    [SerializeField] private float startAngle = 0;
+    [SerializeField] private float _startAngle = 0;
     [SerializeField] private float endAngle = 0;
     [SerializeField] private float radius = 0;
 
@@ -25,8 +25,8 @@ public class WeaponTripleBasic : UnitWeapon
     {
         if (Time.time >= _nextBullet)
         {
-            angleStep = (endAngle - startAngle) / _maxBullet;
-            angle = (startAngle);
+            angleStep = endAngle / _maxBullet;
+            angle = _startAngle;
 
             for (int i = 0; i < _maxBullet; i++)
             {
@@ -38,25 +38,18 @@ public class WeaponTripleBasic : UnitWeapon
 
                 bulletType = pool.GetObject();
                 bulletType.transform.position = spawnList[i].transform.position + bulDir;
-                bulletType.transform.forward = spawnList[i].transform.forward + bulDir;
+                bulletType.transform.forward = bulDir;
                 bulletType.BackStock = pool.ReturnObject;
 
-               angle += angleStep;
+                angle += angleStep;
             }
-
             _nextBullet = Time.time + _attackBulletRate / _divideAttack;
         }
     }
 
-    public override bool Fire(bool a)
+    public override void Fire()
     {
-        if (a != false)
-        {
-            Shoot();
-            return true;
-        }
-        else
-            return a;
+        Shoot();
     }
 
     public UnitBullet BulletReturn()

@@ -14,7 +14,7 @@ public class BulletBasicAdvance : IBulletAdvance
         _transform = transform;
     }
 
-    public void EnemyAdvance()
+    public void BulletAdvance()
     {
         _transform.position += _transform.forward * _speed * Time.deltaTime;
     }

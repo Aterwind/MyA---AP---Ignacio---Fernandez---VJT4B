@@ -13,7 +13,7 @@ public abstract class UnitWeapon : MonoBehaviour
     protected float _nextBullet = 0;
 
     protected abstract void Shoot(); //Dispara la bala
-    public abstract bool Fire(bool a);
+    public abstract void Fire();
 
  
 }

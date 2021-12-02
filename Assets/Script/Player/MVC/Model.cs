@@ -1,27 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 public class Model
 {
     float _hp;
-    float _maxHp; 
+    float _maxHp;
     float _speed;
     Transform _myTransform;
+    UnitWeapon _weapon;
 
     public event Action<float> OnGetmaxHp;
     public event Action<float> OnGetHp;
     public event Action<float, float> OnGetDmg;
     public event Action OnDeath;
 
-    public Model(float hp, float maxHp, float speed, Transform transform)
+    public Model(float hp, float maxHp, float speed, Transform transform, UnitWeapon weapon)
     {
         _hp = hp;
         _maxHp = maxHp;
         _hp = _maxHp;
         _speed = speed;
         _myTransform = transform;
+        _weapon = weapon;
     }
 
     public void Movement(float h, float v)
@@ -29,16 +29,26 @@ public class Model
         var dir = _myTransform.up * v;
         dir += _myTransform.right * h;
 
-        if(dir.magnitude > 1)
+        if (dir.magnitude > 1)
             _myTransform.position += dir.normalized * _speed * Time.deltaTime;
         else
             _myTransform.position += dir * _speed * Time.deltaTime;
     }
 
+    public void IndexWeapon(UnitWeapon w)
+    {
+        _weapon = w;
+    }
+
+    public void Shoot()
+    {
+        _weapon.Fire();
+    }
+
     public void ChangeMaxHP(float changeHp)
     {
         _maxHp += changeHp;
-        if(OnGetmaxHp != null)
+        if (OnGetmaxHp != null)
             OnGetmaxHp.Invoke(_maxHp);
     }
 

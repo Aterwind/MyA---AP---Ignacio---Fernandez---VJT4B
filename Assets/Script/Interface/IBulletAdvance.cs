@@ -1,4 +1,4 @@
 ﻿public interface IBulletAdvance
 {
-    void EnemyAdvance();
+    void BulletAdvance();
 }

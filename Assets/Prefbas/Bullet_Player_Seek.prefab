@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7828529199295877194}
   - component: {fileID: 2392897728172231253}
   m_Layer: 9
-  m_Name: Bullet_Seek
+  m_Name: Bullet_Player_Seek
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +156,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 2299297487049560110}
   _targetCollider: {fileID: 2609269601698975351}
-  _timeResetCollider: 0.1
   _radiusCollider: 15
   _listTarget: []

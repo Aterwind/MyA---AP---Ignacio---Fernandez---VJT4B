@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour : UnitBullet
+public class BulletBasicSlowBehaviour : UnitBullet
 {
     void Start()
     {
-        _strategy[0] = new BulletBasicAdvance(FlyweightPointer.BulletBasicPlayer.speed, _transform);
+        _strategy[0] = new BulletBasicAdvance(FlyweightPointer.BulletSphere.speed, _transform);
         _currentStrategy = _strategy[0];
     }
 
     void Update()
     {
         if (_currentStrategy != null)
-            _currentStrategy.EnemyAdvance();
+            _currentStrategy.BulletAdvance();
     }
 
     public void OnTriggerEnter(Collider other)

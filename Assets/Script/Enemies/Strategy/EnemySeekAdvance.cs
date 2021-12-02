@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class BulletSeekAdvance : IBulletAdvance
+public class EnemySeekAdvance : IEnemyAdvance
 {
-    float _speed;
     Transform _transform;
     CapsuleCollider _targetCollider;
     List<GameObject> _listTarget = new List<GameObject>();
@@ -17,43 +15,28 @@ public class BulletSeekAdvance : IBulletAdvance
     Vector3 _velocity;
     Vector3 _targetSave;
 
-    Action<UnitBullet> _BackStock;
-    UnitBullet _unitBullet;
-
-    public BulletSeekAdvance(float speed, Transform transform, CapsuleCollider targetCollider, 
-        List<GameObject> listTarget, float timeResetCollider, float distanceBack, Vector3 sterring,
-        Vector3 desired, Vector3 velocity, Vector3 targetSave, UnitBullet unitBullet, Action<UnitBullet> BackStock)
+    public EnemySeekAdvance(Transform transform, CapsuleCollider targetCollider,
+        List<GameObject> listTarget, Vector3 sterring,
+        Vector3 desired, Vector3 velocity, Vector3 targetSave)
     {
-        _speed = speed;
         _transform = transform;
         _targetCollider = targetCollider;
         _listTarget = listTarget;
-        _timeResetCollider = timeResetCollider;
-        _distanceBackStock = distanceBack;
         _steering = sterring;
         _desired = desired;
         _velocity = velocity;
         _targetSave = targetSave;
-        _unitBullet = unitBullet;
-        _BackStock = BackStock;
-
     }
 
     public void EnemyAdvance()
     {
-        if(_listTarget.Count >= 1)
+        if (_listTarget.Count >= 1)
         {
+            Debug.Log("estoy aca");
             _transform.position += _velocity * Time.deltaTime;
             _transform.forward = _velocity.normalized;
             _targetSave = _listTarget[0].transform.position - _transform.position;
-
             ApplyForce(Seek());
-
-            if(_targetSave.magnitude < _distanceBackStock)
-            {
-                _listTarget.Clear();
-                _BackStock.Invoke(_unitBullet);
-            }
         }
     }
 
@@ -61,7 +44,7 @@ public class BulletSeekAdvance : IBulletAdvance
     {
         _desired = _listTarget[0].transform.position - _transform.position;
         _desired.Normalize();
-        _desired *= _speed;
+        _desired *= FlyweightPointer.EnemySeek.speed;
         _desired.z = 0;
 
         return SterringFunc();
@@ -76,7 +59,6 @@ public class BulletSeekAdvance : IBulletAdvance
     void ApplyForce(Vector3 Force)
     {
         _velocity += Force;
-        _velocity = Vector3.ClampMagnitude(_velocity, _speed);
+        _velocity = Vector3.ClampMagnitude(_velocity, FlyweightPointer.EnemySeek.speed);
     }
-
 }

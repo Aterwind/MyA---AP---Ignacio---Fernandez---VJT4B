@@ -30,15 +30,9 @@ public class WeaponBasic : UnitWeapon
         }
     }
 
-    public override bool Fire(bool a)
+    public override void Fire()
     {
-        if (a != false)
-        {
-            Shoot();
-            return true;
-        }
-        else
-            return a;
+       Shoot();
     }
 
     public UnitBullet BulletReturn()

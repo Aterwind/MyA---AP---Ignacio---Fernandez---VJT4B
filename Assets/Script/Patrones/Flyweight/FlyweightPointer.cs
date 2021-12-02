@@ -16,4 +16,15 @@ public static class FlyweightPointer
         timeResetCollider = 0.1f,
     };
 
+    public static readonly Flyweight BulletSphere = new Flyweight
+    {
+        speed = 5,
+    };
+
+    public static readonly Flyweight EnemySeek = new Flyweight
+    {
+        speed = 8,
+        timeResetCollider = 3,
+    };
+
 }

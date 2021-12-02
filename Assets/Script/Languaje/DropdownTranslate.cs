@@ -9,7 +9,7 @@ public class DropdownTranslate : ButtonBase
 {
     public TMP_Dropdown myText = null;
     public List<string> myID = new List<string>();
-    private bool firstEntry = false;
+    public int myValue = 0;
 
     void OnEnable()
     {
@@ -17,35 +17,25 @@ public class DropdownTranslate : ButtonBase
         {
             indexValueChange(myText);
         });
+
+        myText.ClearOptions();
+        myText.AddOptions(myID);
     }
 
     public override void ChangeLang()
     {
         for (int i = 0; i < myID.Count; i++)
         {
-            if (firstEntry != true)
-            {
-                myText.ClearOptions();
-                myText.AddOptions(myID);
-            }
-
-            for (int x = 0; x < myID.Count; x++)
-            {
-                myText.options[x].text = LangMannager.instance.GetTransLate(myID[x]);
-            }
+            myText.options[i].text = LangMannager.instance.GetTransLate(myID[i]);
         }
 
-        firstEntry = true;
         myText.captionText.text = LangMannager.instance.GetTransLate(myID[myText.value]);
     }
 
-    public void indexValueChange(TMP_Dropdown i)
+    public void indexValueChange(TMP_Dropdown tmpDd)
     {
-        if (LangMannager.instance.selectedLanguage == Language.eng)
-            LangMannager.instance.selectedLanguage = Language.spa;
-        else
-            LangMannager.instance.selectedLanguage = Language.eng;
-
+        myValue = tmpDd.value;
+        LangMannager.instance.selectedLanguage = (Language)myValue;
         LangMannager.instance.OnUpdate?.Invoke();
     }
 }

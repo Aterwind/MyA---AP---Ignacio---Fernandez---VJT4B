@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class UnitEnemies : MonoBehaviour
+public abstract class UnitEnemies : MonoBehaviour, ITurnBase<UnitEnemies>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected float _maxHp = 0;
+    [SerializeField] protected Transform _myTransform = null;
+    protected float _hp;
+    public Action<UnitEnemies> backStock;
+
+    public void TurnOff(UnitEnemies b)
     {
-        
+        b.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TurnOn(UnitEnemies b)
     {
-        
+        b.gameObject.SetActive(true);
+    }
+
+    public UnitEnemies Enemies()
+    {
+        return Instantiate(this);
     }
 }

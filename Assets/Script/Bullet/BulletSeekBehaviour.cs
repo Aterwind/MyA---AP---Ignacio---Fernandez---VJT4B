@@ -5,7 +5,6 @@ using UnityEngine;
 public class BulletSeekBehaviour : UnitBullet
 {
     [SerializeField] private CapsuleCollider _targetCollider = null;
-    //[SerializeField] private float _timeResetCollider = 0;
     [SerializeField] private float _radiusCollider = 0;
 
     private Vector3 _steering = Vector3.zero;
@@ -23,30 +22,23 @@ public class BulletSeekBehaviour : UnitBullet
             FlyweightPointer.BulletSeekPlayer.distanceBackStock, _steering, _desired, _velocity, _targetSave, this, BackStock);
 
         _currentStrategy = _strategy[1];
-
     }
 
     void Update()
     {
         if (_currentStrategy != null)
-            _currentStrategy.EnemyAdvance();
+            _currentStrategy.BulletAdvance();
 
         if(_listTarget.Count >= 1)
-        {
             _currentStrategy = _strategy[1];
-        }
         else
-        {
             _currentStrategy = _strategy[0];
-        }
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if (_listTarget.Count < 1)
-        {
             _listTarget.Add(other.gameObject);
-        }
     }
 
     public void OnTriggerExit(Collider other)

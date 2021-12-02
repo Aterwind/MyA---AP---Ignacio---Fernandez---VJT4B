@@ -593,6 +593,7 @@ MonoBehaviour:
   myID:
   - ID_LanguageEng
   - ID_LanguageSpa
+  myValue: 0
 --- !u!1 &835935557
 GameObject:
   m_ObjectHideFlags: 0
