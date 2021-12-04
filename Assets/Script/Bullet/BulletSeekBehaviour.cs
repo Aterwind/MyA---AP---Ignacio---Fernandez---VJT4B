@@ -20,7 +20,6 @@ public class BulletSeekBehaviour : UnitBullet
         _strategy[0] = new BulletBasicAdvance(FlyweightPointer.BulletBasicPlayer.speed, _transform);
         _strategy[1] = new BulletSeekAdvance(FlyweightPointer.BulletSeekPlayer.speed, _transform ,_targetCollider, _listTarget, FlyweightPointer.BulletSeekPlayer.timeResetCollider,
             FlyweightPointer.BulletSeekPlayer.distanceBackStock, _steering, _desired, _velocity, _targetSave, this, BackStock);
-
         _currentStrategy = _strategy[1];
     }
 

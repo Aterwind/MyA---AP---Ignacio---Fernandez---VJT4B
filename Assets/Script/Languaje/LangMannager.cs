@@ -22,12 +22,21 @@ public class LangMannager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void Start()
     {
         StartCoroutine(DownloadCSV(externalURL));
+        DontDestroyOnLoad(this);
     }
 
     public string GetTransLate(string id)

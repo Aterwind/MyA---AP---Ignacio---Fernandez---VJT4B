@@ -1,44 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class EnemyBasic : UnitEnemies, IDamageable
+public class EnemyBasic : UnitEnemies
 {
     private ModelBasicEnemy _model = null;
     private ControllerBasicEnemy _controller = null;
-    private ViewBasicEnemy _view = null;
 
     private IEnemyAdvance _currentStrategy = null;
-    private IEnemyAdvance[] _strategy = new IEnemyAdvance[2];
+    private IEnemyAdvance[] _strategy = new IEnemyAdvance[1];
 
-    private void Awake()
-    {
-        _model = new ModelBasicEnemy(_hp, _maxHp, _myTransform, _currentStrategy, _strategy);
-        _controller = new ControllerBasicEnemy(_model);
-    }
     private void Start()
     {
+        _model = new ModelBasicEnemy(_hp, _maxHp, _myTransform, _currentStrategy, _strategy, backStock, this);
+        _controller = new ControllerBasicEnemy(_model);
         _model.OnStart();
     }
     void Update()
     {
         _controller.OnUpdate();
     }
-    public void TakeDamage(float dmg)
-    {
-        throw new System.NotImplementedException();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == FlyweightPointer.EnemyBasic.bullets)
+        if (other.gameObject.CompareTag("Bullet"))
         {
-            EventManager.Trigger("OnScoreUpdate", FlyweightPointer.EnemyBasic.enemyTypeScore);
+            backStock.Invoke(this);
+            EventManager.Trigger("UpdateUIScore", FlyweightPointer.EnemyBasic.enemyTypeScore);
         }
 
-        if (other.gameObject.layer == FlyweightPointer.EnemyBasic.bounds || other.gameObject.layer == FlyweightPointer.EnemyBasic.player)
+        if(other.gameObject.CompareTag("Bounds"))
         {
-            //Retorno al Pool
+            backStock.Invoke(this);
         }
     }
 

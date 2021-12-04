@@ -10,26 +10,34 @@ public class View
         model.OnGetDmg += Damage;
         model.OnDeath += Death;
         model.OnGetHp += Receive;
-        model.OnGetmaxHp += ChangeMaxHP;
+        model.OnGetmaxHp+= ChangeMaxHP;
+        model.OnSetHp += HpInitial;
     }
 
-    public void Damage(float life, float maxLife)
+    public void HpInitial(float hp, float maxHp)
     {
-        Debug.Log("Vida: "+ life);
+        EventManager.Trigger("UpdateUIhp", hp, maxHp);
     }
 
-    public void Receive(float life)
+    public void Receive(float hp)
     {
-        Debug.Log("Vida: " + life);
-    } 
+        EventManager.Trigger("UpdateUIhp", hp, null);
+    }
 
     public void ChangeMaxHP(float maxHp)
     {
-        Debug.Log("Vida maxima: " + maxHp);
+        EventManager.Trigger("UpdateUIhp", null , maxHp);
     }
 
-    public void Death()
+    public void Damage(float hp)
     {
+        EventManager.Trigger("UpdateUIhp", hp, null);
+    }
+
+    public void Death(float hp)
+    {
+        EventManager.Trigger("UpdateUIhp", hp, null);
+        EventManager.Trigger("ResetLevel");
         Debug.Log("Animacion de muerte");
     }
 }

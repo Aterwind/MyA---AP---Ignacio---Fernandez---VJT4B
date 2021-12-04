@@ -8,7 +8,5 @@ public class Flyweight
     public float distanceBackStock;
     public float timeResetCollider;
     public float enemyTypeScore;
-    public int player;
-    public int bounds;
-    public int bullets;
+    public float timeWave;
 }

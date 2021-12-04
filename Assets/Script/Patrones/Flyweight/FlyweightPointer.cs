@@ -23,22 +23,25 @@ public static class FlyweightPointer
 
     public static readonly Flyweight EnemySeek = new Flyweight
     {
-        speed = 8,
-        timeResetCollider = 3,
+        speed = 20,
+        timeResetCollider = 1,
+        distanceBackStock = 0.5f,
         enemyTypeScore = 50,
-        player = 8,
-        bullets = 9,
-        bounds = 12,
     };
 
     public static readonly Flyweight EnemyBasic = new Flyweight
     {
-        speed = 6,
+        speed = 12,
         enemyTypeScore = 25,
-        player = 8,
-        bullets = 9,
-        bounds = 12,
-
     };
 
+    public static readonly Flyweight Wave = new Flyweight
+    {
+        timeWave = 3,
+    };
+
+    public static readonly Flyweight Collectable= new Flyweight
+    {
+        speed = 5,
+    };
 }

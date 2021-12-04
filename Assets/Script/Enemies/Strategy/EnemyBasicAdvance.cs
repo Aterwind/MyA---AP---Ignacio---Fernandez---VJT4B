@@ -13,6 +13,6 @@ public class EnemyBasicAdvance : IEnemyAdvance
 
     public void EnemyAdvance()
     {
-        _transform.position += _transform.forward * FlyweightPointer.EnemySeek.speed * Time.deltaTime;
+        _transform.position += _transform.forward * FlyweightPointer.EnemyBasic.speed * Time.deltaTime;
     }
 }

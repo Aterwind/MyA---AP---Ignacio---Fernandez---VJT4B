@@ -9,13 +9,11 @@ public class Model
     Transform _myTransform;
     UnitWeapon _weapon;
 
+    public event Action<float, float> OnSetHp;
     public event Action<float> OnGetmaxHp;
     public event Action<float> OnGetHp;
-    public event Action<float, float> OnGetDmg;
-    public event Action OnDeath;
-    public event Action<float> HealthUpdater;
-
-
+    public event Action<float> OnGetDmg;
+    public event Action<float> OnDeath;
 
     public Model(float hp, float maxHp, float speed, Transform transform, UnitWeapon weapon)
     {
@@ -27,11 +25,14 @@ public class Model
         _weapon = weapon;
     }
 
-    public void HpInitializer(float hp)
+    public void SetHp(float hp, float maxHp)
     {
-        _maxHp = hp;
-        if (HealthUpdater != null)
-            HealthUpdater.Invoke(_maxHp);
+        _maxHp = maxHp;
+         hp = _maxHp;
+        _hp = hp;
+
+        if (OnSetHp != null)
+            OnSetHp.Invoke(hp, maxHp);
     }
 
     public void Movement(float h, float v)
@@ -43,8 +44,6 @@ public class Model
             _myTransform.position += dir.normalized * _speed * Time.deltaTime;
         else
             _myTransform.position += dir * _speed * Time.deltaTime;
-
-
     }
 
     public void IndexWeapon(UnitWeapon w)
@@ -66,10 +65,18 @@ public class Model
 
     public void ReceiveHP(float hp)
     {
-        if (_hp < _maxHp)
+        if (_hp <= _maxHp)
         {
-            _hp += hp;
-            OnGetHp.Invoke(_hp);
+            if(hp > _hp)
+            {
+                _hp = _maxHp;
+                OnGetHp.Invoke(_hp);
+            }
+            else
+            {
+                _hp += hp;
+                OnGetHp.Invoke(_hp);
+            }
         }
     }
 
@@ -80,12 +87,12 @@ public class Model
         {
             _hp = 0;
             if (OnDeath != null)
-                OnDeath.Invoke();
+                OnDeath.Invoke(_hp);
         }
         else
         {
             if (OnGetDmg != null)
-                OnGetDmg.Invoke(_hp, _maxHp);
+                OnGetDmg.Invoke(_hp);
         }
     }
 }

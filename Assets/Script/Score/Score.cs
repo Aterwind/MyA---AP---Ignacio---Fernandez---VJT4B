@@ -5,24 +5,50 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField] private float _currentScore;
-    [SerializeField] private TextMeshProUGUI _currentScoreText;
+    [Header("Estructura")]
+    public PowerUpData scoreData;
 
+    [Header("Textos")]
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI scoreText;
 
-    private void Start()
+    private float _playerHp = 0;
+    private float _playerMaxHp = 0;
+    private float _points = 0;
+    public int nextPowerUp = 0;
+
+    private void Awake()
     {
-        EventManager.Subscribe("OnScoreUpdate", ScoreChanger);
+        EventManager.Subscribe("UpdateUIhp", UpdateHpText);
+        EventManager.Subscribe("UpdateUIScore", UpdateScoreText);
     }
-    //private void Update() Testesa el evento de udpatear el score
-    //{
-    //    if (Input.GetKeyDown(KeyCode.A))
-    //        EventManager.Trigger("OnScoreUpdate", 100);
-    //}
-
-    private void ScoreChanger(params object[] parameters)
+    void UpdateHpText(object[] parameters)
     {
-        _currentScore += (int)parameters[0];
-        _currentScoreText.text = _currentScore.ToString();
-    }
+        if(parameters[0] != null)
+            _playerHp = (float)parameters[0];
 
+        if (parameters[1] != null)
+            _playerMaxHp = (float)parameters[1];
+
+        hpText.text = _playerHp + " / " + _playerMaxHp;
+    }
+    void UpdateScoreText(object[] parameters)
+    {
+        _points += (float)parameters[0];
+        scoreText.text = _points.ToString();
+
+        if (_points >= scoreData.points)
+        {
+            EventManager.Trigger(scoreData.events);
+            scoreData.points += nextPowerUp;
+        }
+    }
 }
+
+[System.Serializable]
+public struct PowerUpData
+{
+    public int points;
+    public string events;
+}
+

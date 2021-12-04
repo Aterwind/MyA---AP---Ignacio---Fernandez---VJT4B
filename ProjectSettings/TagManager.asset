@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
+  - Enemy
+  - Bounds
   layers:
   - Default
   - TransparentFX
@@ -18,11 +21,11 @@ TagManager:
   - Enemy
   - TargetLayer
   - Bounds
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ReturnObject
+  - TargetLayerEnemy
+  - BulletEnemy
+  - Collectable
+  - Limite
   - 
   - 
   - 

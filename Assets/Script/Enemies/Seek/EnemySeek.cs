@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemySeek : UnitEnemies
 {
-    private ModelEnemySeek _model = null;
-    private ControllerEnemySeek _controller = null;
-    private ViewEnemySeek _view = null;
-
     private IEnemyAdvance _currentStrategy = null;
     private IEnemyAdvance[] _strategy = new IEnemyAdvance[2];
 
@@ -21,42 +17,61 @@ public class EnemySeek : UnitEnemies
     [SerializeField] private List<GameObject> _listTarget = new List<GameObject>();
     private Vector3 _targetSave = Vector3.zero;
 
-    private void Awake()
-    {
-        _model = new ModelEnemySeek(_hp, _maxHp, _indexState, _myTransform, _currentStrategy, _strategy,
-            _targetCollider, _steering, _desired, _velocity, _targetSave, _listTarget);
-        _controller = new ControllerEnemySeek(_model);
-    }
+    [SerializeField] private float viewRadius = 0;
+    [SerializeField] private LayerMask targetMask = 0;
+
     private void Start()
     {
-        _model.OnStart();
+        _strategy[0] = new EnemyBasicAdvance(_myTransform);
+        _strategy[1] = new EnemySeekAdvance(_myTransform, _targetCollider, _listTarget, _steering, _desired, _velocity, _targetSave, this, backStock);
+        _currentStrategy = _strategy[_indexState];
     }
     private void Update()
     {
-        _controller.OnUpdate();
+        RadiusTargets();
+
+        if (_currentStrategy != null)
+            _currentStrategy.EnemyAdvance();
+
+        if (_listTarget.Count >= 1)
+            _currentStrategy = _strategy[1];
+        else
+            _currentStrategy = _strategy[0];
     }
+
+    public void RadiusTargets()
+    {
+        Collider[] playerTar = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+        foreach (var item in playerTar)
+        {
+            if(_listTarget.Count < 1)
+            _listTarget.Add(item.gameObject);
+        }
+    }
+
 
     public void OnTriggerEnter(Collider other)
     {
         var hitPlayer = other.gameObject.GetComponent<PlayerBehoviour>();
         if (hitPlayer != null && _listTarget.Count < 1)
         {
-            _listTarget.Add(hitPlayer.gameObject); _targetCollider.radius = 0;
+            _listTarget.Add(hitPlayer.gameObject);
+            viewRadius = 0;
             StartCoroutine(ResetCollider());
         }
 
-        //Si golpea con una bala da puntos
-        if (other.gameObject.layer == FlyweightPointer.EnemySeek.bullets)
+        if (other.gameObject.CompareTag("Bullet"))
         {
-            EventManager.Trigger("OnScoreUpdate", FlyweightPointer.EnemySeek.enemyTypeScore);
+            backStock.Invoke(this);
+            _listTarget.Clear();
+            EventManager.Trigger("UpdateUIScore", FlyweightPointer.EnemySeek.enemyTypeScore);
         }
 
-        //Si golpea con bounds o player returnea al pool
-        if (other.gameObject.layer == FlyweightPointer.EnemySeek.bounds || other.gameObject.layer == FlyweightPointer.EnemySeek.player)
+        if (other.gameObject.CompareTag("Bounds"))
         {
-            //Retorno al Pool
+            _listTarget.Clear();
+            backStock.Invoke(this);
         }
-
     }
 
     IEnumerator ResetCollider()
@@ -65,5 +80,10 @@ public class EnemySeek : UnitEnemies
         _listTarget.Remove(_listTarget[0].gameObject);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, viewRadius);
+    }
 
 }

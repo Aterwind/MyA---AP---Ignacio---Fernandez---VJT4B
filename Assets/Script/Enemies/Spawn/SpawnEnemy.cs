@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
+    [Header("Tipo y cantidad de enemigos")]
     public Transform myTransform = null;
     public UnitEnemies enemies = null;
     public int stock = 0;
     public TypeSpawn type;
     private int _maxRandomListEnemy = 0;
 
-    [SerializeField] private float waveRate = 2;
-    private float waveSum = 1;
+    [Header("Rate de Oleadas")]
     private float nextWaveTime = 2;
 
+    [Header("Variables para los patrones")]
     [SerializeField] private float _distance = 0;
     [SerializeField] private float _startAngle = 0;
     [SerializeField] private float endAngle = 0;
@@ -21,11 +22,12 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] private float division = 0;
     private float angleStep = 0;
     private float angle = 0;
-    [SerializeField] private int initialPosX = 0, initialPosY;
+    [SerializeField] private int initialPosX = 0;
+    [SerializeField] private int initialPosY = 0;
 
+    [Header("Lista de spawn")]
     public List<GameObject> spawnList = new List<GameObject>();
     ObjectPool<UnitEnemies> pool = null;
-    
     IPatronAdvance _currenStrategy = null;
     IPatronAdvance[] _strategy = new IPatronAdvance[2];
 
@@ -48,17 +50,10 @@ public class SpawnEnemy : MonoBehaviour
 
     private void Update()
     {
-       /*
         if(Time.time >= nextWaveTime)
         {
             _currenStrategy.PatronAdvance();
-            nextWaveTime = Time.time + waveSum / waveRate ;
-        }
-        */
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            _currenStrategy.PatronAdvance();
+            nextWaveTime = Time.time + FlyweightPointer.Wave.timeWave;
         }
     }
 }

@@ -58,6 +58,7 @@ public class PatronEnemyOne : IPatronAdvance
 
             _enemies = _pool.GetObject();
             _enemies.transform.position = _spawnList[i].transform.position + enemyDir * _distance;
+            _enemies.transform.forward = _spawnList[i].transform.forward;
             _enemies.backStock = _pool.ReturnObject;
             _angle += _angleStep;
         }

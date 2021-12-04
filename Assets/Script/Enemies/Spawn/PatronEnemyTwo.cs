@@ -41,6 +41,7 @@ public class PatronEnemyTwo : IPatronAdvance
             Vector3 pos = new Vector3(_initialPosX + _distance * i, _initialPosY, 0);
             _enemies = _pool.GetObject();
             _enemies.transform.position = _spawnList[i].transform.position + pos;
+            _enemies.transform.forward = -_spawnList[i].transform.position;
             _enemies.backStock = _pool.ReturnObject;
         }
 
